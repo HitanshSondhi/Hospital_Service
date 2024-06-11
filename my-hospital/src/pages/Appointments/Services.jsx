@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 
 const services = [
-  { id: 1, category: 'Cardiology', name: 'Cardiologists', duration: '30 m', price: 'Rs 500.00' },
-  { id: 2, category: 'Psychiatry', name: 'Psychiatrists', duration: '45 m', price: 'Rs 1000.00' },
-  { id: 3, category: 'Gynecology', name: 'Gynecologists', duration: '60 m', price: 'Rs 1500.00' },
+  { id: 1, category: 'Cardiology', name: 'Cardiologists', duration: '30 m', price: 'Rs 500.00', doctors: ['Dr. Mohit', 'Dr. Param', 'Dr. Hitansh'] },
+  { id: 2, category: 'Psychiatry', name: 'Psychiatrists', duration: '45 m', price: 'Rs 1000.00', doctors: ['Dr. Mohit', 'Dr. Param', 'Dr. Apurv'] },
+  { id: 3, category: 'Gynecology', name: 'Gynecologists', duration: '60 m', price: 'Rs 1500.00', doctors: ['Dr. Mohit', 'Dr. Param', 'Dr. Hitansh'] },
 ];
 
-const Services = () => {
+const Services = ({ onSelectService }) => {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
 
   const filteredServices = selectedCategory === 'ALL'
     ? services
     : services.filter(service => service.category === selectedCategory);
+
+  const handleServiceClick = (service) => {
+    const randomDoctor = service.doctors[Math.floor(Math.random() * service.doctors.length)];
+    const selectedServiceWithDoctor = { ...service, doctor: randomDoctor };
+    onSelectService(selectedServiceWithDoctor);
+  };
 
   return (
     <div className="w-10/12 ml-32 p-5 rounded-2xl border-black border-x-2 border-y-2">
@@ -22,7 +28,7 @@ const Services = () => {
             <button
               key={category}
               className={`px-4 py-2 rounded-full ${selectedCategory === category ? 'bg-blue-500 text-white' : 'bg-white text-black'
-                } hover:bg-blue-700 hover:text-white`}
+                } hover:bg-blue-700 hover:ease-in-out transition duration-300 hover:text-white`}
               onClick={() => setSelectedCategory(category)}
             >
               {category}
@@ -32,7 +38,11 @@ const Services = () => {
         <h3 className="text-xl font-semibold mb-4">Select Service</h3>
         <div className="space-y-4">
           {filteredServices.map(service => (
-            <div key={service.id} className="p-4 bg-white rounded shadow border border-gray-200">
+            <div
+              key={service.id}
+              className="p-4 bg-white rounded shadow border border-gray-200 cursor-pointer hover:bg-gray-100"
+              onClick={() => handleServiceClick(service)}
+            >
               <div className="flex items-center">
                 <div className="mr-4">
                   <div className="w-12 h-12 bg-gray-200 rounded-full"></div>

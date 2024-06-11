@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import Appointment from './pages/Appointments/Appointment';
 import Pharmacy from './pages/Pharmacy/Pharmacy';
+import AboutUs from './pages/AboutUs';
 
 const textOptions = [
   {
@@ -48,6 +49,7 @@ function App() {
           <Route path="/" element={<HomePage title={title} subtitle={subtitle} description={description} />} />
           <Route path="/appointments" element={<Appointment />} />
           <Route path='/pharmacy' element={<Pharmacy />} />
+          <Route path='/aboutus' element={<AboutUs />} />
         </Routes>
         <Footer />
       </div>
@@ -67,9 +69,9 @@ function HomePage({ title, subtitle, description }) {
             <p className="text-6xl font-bold ml-12 transition-opacity duration-1000 ease-in-out">{subtitle}</p>
             <p className="text-xl ml-12 mt-6 transition-opacity duration-1000 ease-in-out">{description}</p>
           </div>
-          <button onClick={() => navigate('/appointments')} className="absolute bottom-4 left-16 bg-blue-600 rounded-full flex items-center text-white hover:bg-blue-900 hover:ease-in duration-500 p-3">
-            <FaUserDoctor className="mr-2" />
-            <span className="text-lg">Make an Appointment</span>
+          <button onClick={() => navigate('/appointments')} className="group absolute bottom-4 left-16 bg-white border-2 border-custom-blue rounded-full flex items-center hover:bg-custom-blue hover:text-white hover:ease-in duration-500 p-3">
+            <FaUserDoctor className="mr-2 text-custom-blue group-hover:text-white group-hover:translate-x-48 duration-700 ease-in-out" />
+            <span className="text-lg font-semibold text-custom-blue group-hover:text-white group-hover:-translate-x-6 duration-700 ease-in-out">Make an Appointment</span>
           </button>
         </div>
       </div>
